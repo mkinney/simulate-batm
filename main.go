@@ -8,7 +8,17 @@ import (
 
 func calculate_crypto_amount(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "application/json")
-  w.Write([]byte(`{"BTC":{"cryptoAmount":0.01017675,"cryptoDiscount":0E-8,"discountCode":null,"discountQuotient":null,"feeDiscount":null,"fiatDiscount":0.00,"fixedTransactionFee":5.0000000000}}`))
+
+	r.ParseForm()
+	cc := r.Form.Get("crypto_currency")
+	switch cc {
+		case "BTC": {
+			w.Write([]byte(`{"BTC":{"cryptoAmount":0.01017675,"cryptoDiscount":0E-8,"discountCode":null,"discountQuotient":null,"feeDiscount":null,"fiatDiscount":0.00,"fixedTransactionFee":5.0000000000}}`))
+		}
+		case "LTC": {
+			w.Write([]byte(`{"LTC":{"cryptoAmount":0.00117675,"cryptoDiscount":0E-8,"discountCode":null,"discountQuotient":null,"feeDiscount":null,"fiatDiscount":0.00,"fixedTransactionFee":5.0000000000}}`))
+		}
+	}
 }
 
 func sell_crypto(w http.ResponseWriter, r *http.Request) {
